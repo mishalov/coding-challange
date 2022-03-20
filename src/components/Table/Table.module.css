@@ -17,8 +17,15 @@
 
 .table th {
   text-align: left;
-
   padding: 5px;
+}
+
+.table th .title-section {
+  cursor: pointer;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
 }
 
 .table td {

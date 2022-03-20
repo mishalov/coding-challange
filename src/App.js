@@ -1,5 +1,5 @@
 import classNames from "./App.module.css";
-import { Table } from "./components";
+import { Table } from "./components/Table";
 import tableData from "./data";
 
 const types = {
