@@ -1,18 +1,31 @@
 import React, { useState, useCallback } from "react";
 import ColumnTitle from "../ColimnTitle";
+import TableCell from "../TableCell";
 import classNames from "./Table.module.css";
 
 /**
- * Apply filters on rows
- * @param {Array} rows
- * @param {Array} filters
- * @returns filtred array of rows
+ * Returns filtred rows
+ * @param {Object[]} rows rows of the table
+ * @param {Object[]} filters - The employees who are responsible for the project.
+ * @param {string} filters[].id - Id of whe column that should be filtered
+ * @param {string} filters[].value - Value to use while filtering
+ * @returns filtered array of rows
  */
 const filterRows = (rows, filters) =>
   rows.filter((row) =>
-    filters.every((filter) => `${row[filter.id]}`.includes(filter.value))
+    filters.every((filter) =>
+      `${row[filter.id]}`.toLowerCase().includes(filter.value.toLowerCase())
+    )
   );
 
+/**
+ * Returns sorted rows
+ * @param {Object[]} rows rows of the table
+ * @param {Object} sorting - The employees who are responsible for the project.
+ * @param {string} sorting.id - Id of whe column that should be filtered
+ * @param {string} sorting.value - Value to use while filtering
+ * @returns sorted array of rows
+ */
 const sortRows = (rows, sorting) => {
   if (!sorting) return rows;
 
@@ -34,6 +47,8 @@ const Table = ({ columns, rows, types }) => {
   // Possible values: null, {id, value: "asc"}, {id, value: "desc"}
   const [sortingState, setSortingState] = useState();
 
+  // in real life scenario this handler should have throttling or debounce
+  // but we consume JSON, so i decided to not spend time on it.
   const createFilteringHandler = useCallback(
     (id) => (event) => {
       const { value } = event.target;
@@ -69,13 +84,13 @@ const Table = ({ columns, rows, types }) => {
         {sortedRows.map((row, index) => (
           <tr key={row.number}>
             {columns.map(({ id }) => (
-              <td
-                data-testid={`row-${index}-${id}`}
-                className={classNames[`cell-type-${types[id]}`]}
-                key={id}
-              >
-                {row[id]}
-              </td>
+              <TableCell
+                id={id}
+                value={row[id]}
+                type={types[id]}
+                rowNumber={index}
+                key={`table-cell-${index}-${id}`}
+              />
             ))}
           </tr>
         ))}
