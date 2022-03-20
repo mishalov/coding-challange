@@ -1,0 +1,7 @@
+.title-section {
+  cursor: pointer;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}

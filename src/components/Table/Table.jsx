@@ -1,14 +1,38 @@
 import React, { useState, useCallback } from "react";
-import filterRows from "../../utils/filterRows";
+import ColumnTitle from "../ColimnTitle";
 import classNames from "./Table.module.css";
-import ascIcon from "./order-ascending.svg";
+
+/**
+ * Apply filters on rows
+ * @param {Array} rows
+ * @param {Array} filters
+ * @returns filtred array of rows
+ */
+const filterRows = (rows, filters) =>
+  rows.filter((row) =>
+    filters.every((filter) => `${row[filter.id]}`.includes(filter.value))
+  );
+
+const sortRows = (rows, sorting) => {
+  if (!sorting) return rows;
+
+  const { id, value } = sorting;
+
+  return rows.sort((left, right) => {
+    if (value === "asc") {
+      return left[id] > right[id] ? 1 : left[id] < right[id] ? -1 : 0;
+    }
+    return left[id] < right[id] ? 1 : left[id] > right[id] ? -1 : 0;
+  });
+};
 
 const Table = ({ columns, rows, types }) => {
   const [filteringObjects, setFilteringState] = useState(
     columns.map((col) => ({ id: col.id, value: "" }))
   );
 
-  const [sortingState, setSortingState] = useState({ id: "", value: "" });
+  // Possible values: null, {id, value: "asc"}, {id, value: "desc"}
+  const [sortingState, setSortingState] = useState();
 
   const createFilteringHandler = useCallback(
     (id) => (event) => {
@@ -20,19 +44,21 @@ const Table = ({ columns, rows, types }) => {
     [filteringObjects]
   );
 
+  const filteredRows = filterRows(rows, filteringObjects);
+  const sortedRows = sortRows(filteredRows, sortingState);
+
   return (
     <table title="Movies" className={classNames.table}>
       <thead>
         <tr>
           {columns.map(({ id, title }) => (
             <th key={id}>
-              <div
-                className={classNames["title-section"]}
-                data-destid={`title-${id}`}
-              >
-                <span>{title}</span>
-                <img src={ascIcon} alt="sorting icon" />
-              </div>
+              <ColumnTitle
+                id={id}
+                currentSorting={sortingState}
+                title={title}
+                handleChangeFilter={setSortingState}
+              />
               <input onChange={createFilteringHandler(id)} />
             </th>
           ))}
@@ -40,8 +66,8 @@ const Table = ({ columns, rows, types }) => {
       </thead>
 
       <tbody>
-        {filterRows(rows, filteringObjects).map((row, index) => (
-          <tr key={index}>
+        {sortedRows.map((row, index) => (
+          <tr key={row.number}>
             {columns.map(({ id }) => (
               <td
                 data-testid={`row-${index}-${id}`}
