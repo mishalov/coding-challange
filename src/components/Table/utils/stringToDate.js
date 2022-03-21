@@ -1,3 +1,8 @@
+/**
+ * Returns Date object made of given string in format dd-mm-yyyy
+ * @param {*} stringValue
+ * @returns {Date}
+ */
 const stringToDate = (stringValue) => {
   if (!stringValue) return stringValue;
   if (stringValue === "Unknown") return new Date(0);

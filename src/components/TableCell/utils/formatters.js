@@ -17,7 +17,7 @@ const formatters = [
 ];
 
 /**
- *
+ * Way to extend ui with new formatters
  * @param {Object} cellData - Cell id and value to render
  * @param {any} cellData.value - value to render
  * @param {any} cellData.type - type of value to render
