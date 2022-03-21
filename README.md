@@ -87,4 +87,5 @@ On a real world scenario, you could potentially argue with a backend developer t
 
 ## 📝 Design decisions and feedback
 
-_Here you can leave any comments about your design decisions, further instructions and comments as well as feedback._
+Task was completed in very limited time, I would like to add functional tests for `utils` things, but cant invest more in it, thank you for understanding :) Tests from `Table` component could be separated and described more proper
+I think.

@@ -43,6 +43,7 @@ const Table = ({ columns, rows, types }) => {
               <input
                 onChange={createFilteringHandler(id)}
                 data-testid={`filter-${id}`}
+                title={`Filtering by ${id} field`}
               />
             </th>
           ))}
