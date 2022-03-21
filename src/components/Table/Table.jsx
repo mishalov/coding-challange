@@ -2,42 +2,8 @@ import React, { useState, useCallback } from "react";
 import ColumnTitle from "../ColimnTitle";
 import TableCell from "../TableCell";
 import classNames from "./Table.module.css";
-
-/**
- * Returns filtred rows
- * @param {Object[]} rows rows of the table
- * @param {Object[]} filters - The employees who are responsible for the project.
- * @param {string} filters[].id - Id of whe column that should be filtered
- * @param {string} filters[].value - Value to use while filtering
- * @returns filtered array of rows
- */
-const filterRows = (rows, filters) =>
-  rows.filter((row) =>
-    filters.every((filter) =>
-      `${row[filter.id]}`.toLowerCase().includes(filter.value.toLowerCase())
-    )
-  );
-
-/**
- * Returns sorted rows
- * @param {Object[]} rows rows of the table
- * @param {Object} sorting - The employees who are responsible for the project.
- * @param {string} sorting.id - Id of whe column that should be filtered
- * @param {string} sorting.value - Value to use while filtering
- * @returns sorted array of rows
- */
-const sortRows = (rows, sorting) => {
-  if (!sorting) return rows;
-
-  const { id, value } = sorting;
-
-  return rows.sort((left, right) => {
-    if (value === "asc") {
-      return left[id] > right[id] ? 1 : left[id] < right[id] ? -1 : 0;
-    }
-    return left[id] < right[id] ? 1 : left[id] > right[id] ? -1 : 0;
-  });
-};
+import filterRows from "./utils/filterRaws";
+import sortRows from "./utils/sortRows";
 
 const Table = ({ columns, rows, types }) => {
   const [filteringObjects, setFilteringState] = useState(
@@ -60,7 +26,7 @@ const Table = ({ columns, rows, types }) => {
   );
 
   const filteredRows = filterRows(rows, filteringObjects);
-  const sortedRows = sortRows(filteredRows, sortingState);
+  const sortedRows = sortRows(filteredRows, sortingState, types);
 
   return (
     <table title="Movies" className={classNames.table}>

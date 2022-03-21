@@ -31,7 +31,3 @@
 .table tbody tr:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
-
-.cell-type-money {
-  text-align: right;
-}

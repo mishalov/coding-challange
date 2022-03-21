@@ -19,7 +19,7 @@ const ColumnTitle = ({ id, currentSorting, title, handleChangeFilter }) => {
   return (
     <div
       className={classNames["title-section"]}
-      data-destid={`title-${id}`}
+      data-testid={`title-${id}`}
       onClick={sortingHandler}
     >
       <span>{title}</span>
