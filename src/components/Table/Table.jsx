@@ -40,7 +40,10 @@ const Table = ({ columns, rows, types }) => {
                 title={title}
                 handleChangeFilter={setSortingState}
               />
-              <input onChange={createFilteringHandler(id)} />
+              <input
+                onChange={createFilteringHandler(id)}
+                data-testid={`filter-${id}`}
+              />
             </th>
           ))}
         </tr>

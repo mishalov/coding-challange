@@ -1,5 +1,5 @@
 /**
- * Returns filtred rows
+ * Returns filtered rows
  * @param {Object[]} rows rows of the table
  * @param {Object[]} filters - The employees who are responsible for the project.
  * @param {string} filters[].id - Id of whe column that should be filtered

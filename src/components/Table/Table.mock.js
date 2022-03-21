@@ -5,12 +5,37 @@ const tableMock = {
     releaseDate: "date",
     productionBudget: "money",
   },
+  filterCases: {
+    number: [{ filterValue: "3", shouldBePresentedWithNumber: ["13", "3"] }],
+    title: [
+      { filterValue: "Captain", shouldBePresentedWithNumber: ["13"] },
+      { filterValue: "NOT_EXISTING", shouldBePresentedWithNumber: [] },
+    ],
+    releaseDate: [
+      { filterValue: "NOT_EXISTING", shouldBePresentedWithNumber: [] },
+      { filterValue: "2016", shouldBePresentedWithNumber: ["13"] },
+      { filterValue: "05", shouldBePresentedWithNumber: ["13", "3", "6"] },
+    ],
+    productionBudget: [
+      { filterValue: "250", shouldBePresentedWithNumber: ["13", "6"] },
+      { filterValue: "1241", shouldBePresentedWithNumber: [] },
+    ],
+  },
   columns: [
     { id: "number", title: "Number" },
     { id: "title", title: "Movie" },
     { id: "releaseDate", title: "Release Date" },
     { id: "productionBudget", title: "Production Budget" },
   ],
+  combinedFiltersWithSorting: {
+    filters: [
+      { id: "releaseDate", value: "05" },
+      { id: "title", value: "v" },
+    ],
+    sortAscBy: "number",
+    resultedNumbers: ["6", "13"],
+  },
+
   rows: [
     {
       number: 13,
