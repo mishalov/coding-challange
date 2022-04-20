@@ -1,6 +1,6 @@
-# 💅 Signavio front-end coding challenge
+# 💅 front-end coding challenge
 
-Welcome to the Signavio front-end coding challenge!
+Welcome to the front-end coding challenge!
 
 We appreciate you taking the time and energy to work on this coding challenge ❤️
 
